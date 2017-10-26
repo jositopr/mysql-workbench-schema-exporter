@@ -351,7 +351,7 @@ XML;
 
 namespace ${namespace}\Repository;
 
-use Common\DoctrineBundle\ORM\EntityRepository;
+use Doctrine\ORM\EntityRepository;
 
 class ${className} extends EntityRepository
 {
