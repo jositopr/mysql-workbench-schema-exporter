@@ -288,8 +288,19 @@ XML;
         $this->removeClassBody($toFile);
         $this->setEndOf($toFile);
         $this->removeImplements($toFile);
+        $this->writeORMEntityAnnotation($toFile);
 
         $this->createRepository($toFile, $this->formatter->getRegistry()->config->get(FormatterInterface::CFG_BASE_NAMESPASE));
+    }
+    
+    /**
+     * @param $file
+     */
+    private function writeORMEntityAnnotation($file){
+        $toFileContent = implode('', file($file));
+        $toFileContent = preg_replace("/(\n+)(\nclass)/", "\n\nuse Doctrine\ORM\Mapping as ORM;\n\n/**\n * @ORM\Entity()\n */\nclass", $toFileContent);
+
+        file_put_contents($file, $toFileContent);
     }
 
     /**
